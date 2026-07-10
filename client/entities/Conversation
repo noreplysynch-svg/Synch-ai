@@ -1,0 +1,49 @@
+{
+  "name": "Conversation",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the conversation"
+    },
+    "messages": {
+      "type": "array",
+      "description": "Array of chat messages",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pinned": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the conversation is pinned"
+    },
+    "model": {
+      "type": "string",
+      "default": "synch-4",
+      "description": "AI model used"
+    },
+    "is_temporary": {
+      "type": "boolean",
+      "default": false,
+      "description": "Temporary chat mode"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
