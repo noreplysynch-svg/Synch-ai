@@ -1,0 +1,15 @@
+{
+  "short_name": "Synch AI",
+  "name": "Synch AI Assistant",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "32x32"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "standalone",
+  "theme_color": "#000000"
+ }
