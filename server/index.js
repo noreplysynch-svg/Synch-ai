@@ -32,8 +32,19 @@ app.use('/uploads', express.static(UPLOAD_DIR));
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-// ── Serve the built frontend ─────────────────────────────────────────────────
+// ── Serve PWA configuration files explicitly ───────────────────────────────
 const clientDist = path.join(__dirname, '..', 'client', 'dist');
+
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.join(clientDist, 'manifest.json'));
+});
+
+app.get('/sw.js', (req, res) => {
+  res.setHeader('Service-Worker-Allowed', '/');
+  res.sendFile(path.join(clientDist, 'sw.js'));
+});
+
+// ── Serve the built frontend ─────────────────────────────────────────────────
 app.use(express.static(clientDist));
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
