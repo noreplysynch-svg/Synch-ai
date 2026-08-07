@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Pricing from './pages/Pricing';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
+import InstallPWABanner from '@/components/InstallPWABanner';
 
 // Bounces to /login while preserving the query string (?completeSignup=..,
 // ?authError=.. etc.) — a plain <Navigate to="/login" /> silently drops it,
@@ -56,6 +57,7 @@ function App() {
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <AuthenticatedApp />
+          <InstallPWABanner />
         </Router>
         <Toaster />
       </QueryClientProvider>

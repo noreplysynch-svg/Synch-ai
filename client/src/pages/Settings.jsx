@@ -3,7 +3,7 @@ import {
   ArrowLeft, Settings as SettingsIcon, Bell, User, LayoutGrid, CreditCard,
   Database, HardDrive, Shield, X, Sun, Moon, Monitor, ChevronRight,
   Plus, Trash2, Crown, Zap, Sparkles, BarChart2, Download, Archive,
-  Link, Eye, EyeOff, AlertTriangle, Check, Copy, LogOut
+  Link, Eye, EyeOff, AlertTriangle, Check, Copy, LogOut, Smartphone
 } from 'lucide-react';
 import UsagePanel from '@/components/settings/UsagePanel';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,41 @@ import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { conversations as conversationsApi, auth } from '@/api/client';
 import { useAuth } from '@/lib/AuthContext';
+import { usePWAInstall } from '@/components/InstallPWABanner';
+
+function PWAInstallRowButton() {
+  const { isInstalled, isInstallable, triggerInstall, isIOS } = usePWAInstall();
+
+  if (isInstalled) {
+    return (
+      <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium flex items-center gap-1">
+        <Check className="w-3.5 h-3.5" /> Installed
+      </span>
+    );
+  }
+
+  if (isIOS) {
+    return (
+      <span className="text-xs text-cyan-400 font-medium">
+        Safari: Share → Add to Home Screen
+      </span>
+    );
+  }
+
+  if (isInstallable) {
+    return (
+      <Button size="sm" onClick={triggerInstall} className="h-8 text-xs bg-cyan-600 hover:bg-cyan-500 text-white gap-1.5">
+        <Smartphone className="w-3.5 h-3.5" /> Install App
+      </Button>
+    );
+  }
+
+  return (
+    <span className="text-xs text-muted-foreground">
+      App Installed / Ready
+    </span>
+  );
+}
 
 const NAV_ITEMS = [
   { id: 'general', label: 'General', icon: SettingsIcon },
@@ -82,6 +117,9 @@ function GeneralPanel() {
             );
           })}
         </div>
+      </Row>
+      <Row label="Mobile & Desktop App" description="Install Synch AI on your mobile device for quick offline access and app launcher icon.">
+        <PWAInstallRowButton />
       </Row>
       <Row label="Language" description="Language for the interface and responses.">
         <Select value={language} onValueChange={handleLanguage}>
