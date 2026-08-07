@@ -16,30 +16,28 @@ export default function EmptyState({ onSuggestionClick }) {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        className="text-center mb-8"
+        className="text-center mb-8 pointer-events-none"
       >
-        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-          <Sparkles className="w-8 h-8 text-primary" />
+        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4 pointer-events-none">
+          <Sparkles className="w-8 h-8 text-primary pointer-events-none" />
         </div>
-        <h1 className="text-2xl font-semibold text-foreground mb-1">Synch AI</h1>
-        <p className="text-sm text-muted-foreground">How can I help you today?</p>
+        <h1 className="text-2xl font-semibold text-foreground mb-1 pointer-events-none">Synch AI</h1>
+        <p className="text-sm text-muted-foreground pointer-events-none">How can I help you today?</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-xl">
         {suggestions.map((s, i) => {
           const Icon = s.icon;
           return (
-            <motion.button
+            <button
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.05 }}
+              type="button"
               onClick={() => onSuggestionClick(s.text)}
-              className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-border bg-card hover:bg-secondary/50 hover:border-primary/20 transition-all text-left group"
+              className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-border bg-card hover:bg-secondary/50 hover:border-primary/20 active:scale-[0.98] transition-all text-left group touch-manipulation cursor-pointer select-none"
             >
-              <Icon className={`w-4 h-4 ${s.color} flex-shrink-0`} />
-              <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors">{s.text}</span>
-            </motion.button>
+              <Icon className={`w-4 h-4 ${s.color} flex-shrink-0 pointer-events-none`} />
+              <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors pointer-events-none">{s.text}</span>
+            </button>
           );
         })}
       </div>
