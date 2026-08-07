@@ -111,13 +111,32 @@
   animation: blink 1s step-end infinite;
 }
 
-/* Icons inside any button (not just the shared <Button>) must never capture
-   the tap — on touch devices the SVG itself was eating the touch before it
-   could bubble to the button, so icon-only or icon+text buttons felt dead
-   on mobile even though they worked fine with a mouse. */
-button svg {
+/* ─────────────────────────────────────────────────────────────────────────────
+   Mobile Touch & Pointer Event Fixes:
+   Icons, SVGs, images, logos, paths, and text spans inside interactive buttons/links
+   must NEVER swallow or intercept touch/pointer events on mobile touchscreens.
+   This ensures touch taps hit the parent button directly without delay or missed clicks.
+   ───────────────────────────────────────────────────────────────────────────── */
+button,
+[role="button"],
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button *,
+[role="button"] *,
+a * {
   pointer-events: none;
 }
-button {
-  touch-action: manipulation;
+
+button input,
+button select,
+button textarea,
+button .pointer-events-auto,
+[role="button"] .pointer-events-auto {
+  pointer-events: auto;
 }
